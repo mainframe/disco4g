@@ -1,0 +1,24 @@
+#!/bin/sh
+
+MODEM_IP="192.168.8.1"
+LOCAL_IP="192.168.8.100"
+
+if [ -n "$( ip addr | grep $LOCAL_IP )" ]; then
+
+        curl -s -X GET "http://$MODEM_IP/api/webserver/SesTokInfo" > /tmp/dmz_ses_tok.xml
+        COOKIE=`grep "SessionID=" /tmp/dmz_ses_tok.xml | cut -b 10-147`
+        TOKEN=`grep "TokInfo" /tmp/dmz_ses_tok.xml | cut -b 10-41`
+	
+	if [ -n "$1" ]; then
+		curl -s -X POST "http://$MODEM_IP/api/security/dmz" -d "<request><DmzStatus>1</DmzStatus><DmzIPAddress>$LOCAL_IP</DmzIPAddress></request>" \
+        	-H "Cookie: $COOKIE" -H "__RequestVerificationToken: $TOKEN" \
+        	-H "Content-Type: text/xml" > /tmp/modem_dmz_response.xml
+	fi
+
+	curl -s -X GET "http://$MODEM_IP/api/security/dmz" \
+        -H "Cookie: $COOKIE" -H "__RequestVerificationToken: $TOKEN" \
+        -H "Content-Type: text/xml" > /tmp/modem_dmz_status.xml
+
+fi
+
+exit 0

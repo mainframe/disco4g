@@ -19,7 +19,8 @@ Currently RPi is required in order to pretend as another Disco drone to SC2 and 
 ```bash
 # download latest raspbian OS image
 curl -L -O https://downloads.raspberrypi.org/raspbian_lite_latest
-unzip 2018-04-18-raspbian-stretch-lite.zip
+mv raspbian_lite_latest raspbian_lite_latest.zip
+unzip raspbian_lite_latest.zip
 
 # download and install etcher.io image installer
 https://etcher.io

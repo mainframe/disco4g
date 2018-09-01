@@ -26,6 +26,7 @@ unzip raspbian_lite_latest.zip
 https://etcher.io
 
 # fire up etcher.io app and flash downloaded Raspbian image to microSD card
+# eject and re-insert SD card
 
 # Add "ssh" File to the SD card boot filesystem (this is MacOSX specific example here)
 sudo touch /Volumes/boot/ssh

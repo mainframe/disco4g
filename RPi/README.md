@@ -46,10 +46,8 @@ sudo su -
 passwd
 
 # enable root user ssh login
-vi /etc/ssh/sshd_config
---- MODIFY ---
-PermitRootLogin yes
---- MODIFY ---
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+systemctl reload ssh
 
 # update OS
 apt-get update
